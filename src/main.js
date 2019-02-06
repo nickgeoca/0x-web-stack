@@ -12,3 +12,11 @@ new Vue({
   i18n,
   render: h => h(App)
 }).$mount("#app");
+
+export const State = new Vue({
+  data: {
+    web3Wrapper: undefined,
+    contractWrappers: undefined,
+    web3: undefined
+  }
+})
