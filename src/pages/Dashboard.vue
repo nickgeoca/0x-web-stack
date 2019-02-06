@@ -125,7 +125,7 @@
   import LineChart from '@/components/Charts/LineChart';
   import BarChart from '@/components/Charts/BarChart';
   import * as chartConfigs from '@/components/Charts/config';
-  import TaskList from './Dashboard/TaskList';
+  import EthToWeth from './Dashboard/EthToWeth';
   import UserTable from './Dashboard/UserTable';
   import config from '@/config';
 
@@ -133,7 +133,7 @@
     components: {
       LineChart,
       BarChart,
-      TaskList,
+      EthToWeth,
       UserTable
     },
     data() {
