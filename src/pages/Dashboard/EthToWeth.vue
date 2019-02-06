@@ -1,28 +1,39 @@
 <template>
-  <div id="ethToWeth">
+
+<div id="ethToWeth">
+  <form>
+    <base-input v-model="amount"
+                type="text"
+                placeholder="Amount">
+    </base-input>
     <base-button type="default" v-on:click="ethToWeth">Eth To Weth</base-button>
-  </div>
+    <base-button type="default" v-on:click="wethToEth">Weth To Eth</base-button>
+  </form>
+</div>
+
 </template>
+
 <script>
 import { BigNumber, ContractWrappers } from '0x.js';
 import { Web3Wrapper } from '@0x/web3-wrapper';
 import { State } from '../../main'
 
 export default {
+  data() {
+    return { amount: '' }
+  },
   methods: {
-    ethToWeth: async (event) => {
-      await wrapOrUnwrapEthAsync(true);
-    }
+    ethToWeth: async function (event) { await wrapOrUnwrapEthAsync(true, this.amount);  },
+    wethToEth: async function (event) { await wrapOrUnwrapEthAsync(false, this.amount); }
   }
 }
 
 const onTxSubmitted = txHash => { console.log(txHash); };
 
-var wrapOrUnwrapEthAsync = async (wrap) => {
+var wrapOrUnwrapEthAsync = async (wrap, amount) => {
   const web3Wrapper = State.web3Wrapper;
   const contractWrappers = State.contractWrappers;
 
-  const amount = 0.5;
   const etherTokenAddress = contractWrappers.forwarder.etherTokenAddress;
 
   if (etherTokenAddress) {
