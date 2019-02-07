@@ -57,7 +57,7 @@ import { generatePseudoRandomSalt
 import { Web3Wrapper } from '@0x/web3-wrapper';
 
 import { State } from './../../main';
-import { relayerURI, NULL_ADDRESS, ZERO } from '../../utils';
+import { NULL_ADDRESS, ZERO } from '../../utils';
 import { ETHER_TOKEN, TOKENS_BY_NETWORK } from '../../tokens';
 import { getContractAddressesForNetworkOrThrow } from '@0x/contract-addresses';
 import { NETWORK_CONFIGS } from './../../config';
@@ -96,7 +96,7 @@ var makerApproveExchangeToSpendERC20Async = async (contractWrappers, token, make
 }
 
 var createOrderAsync = async (makerTokenSymbol, makerAmount, takerTokenSymbol, takerAmount, deltaExpTime) => {
-  const httpClient = new HttpClient(relayerURI);
+  const httpClient = new HttpClient('http://localhost:3000/v2/');
   const web3Wrapper = State.web3Wrapper;
   const contractWrappers = State.contractWrappers;
 
@@ -129,8 +129,8 @@ var createOrderAsync = async (makerTokenSymbol, makerAmount, takerTokenSymbol, t
     takerAssetAmount, // The taker asset amount
     makerAssetData,
     takerAssetData,
-    // makerFee: Web3Wrapper.toBaseUnitAmount(new BigNumber(.03), makerToken.decimals), // 0 maker fees
-    // takerFee: ZERO, // 0 taker fees
+    makerFee: new BigNumber(10), // Web3Wrapper.toBaseUnitAmount(new BigNumber(.03), makerToken.decimals), // 0 maker fees
+    takerFee: new BigNumber(10), // 0 taker fees
   };
 
   const orderConfig = await httpClient.getOrderConfigAsync(orderConfigRequest, {
