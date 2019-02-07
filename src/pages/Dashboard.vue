@@ -115,6 +115,14 @@
           <create-order></create-order>
         </card>
       </div>
+<!-- get orders -->
+      <div class="col-lg-6 col-md-12">
+        <card class="card" :header-classes="{'text-right': isRTL}">
+          <h4 slot="header" class="card-title">Get Orders</h4>
+          <get-orders></get-orders>
+        </card>
+      </div>
+
 <!-- End of Cards -->
     </div>
   </div>
@@ -126,6 +134,7 @@
   import EthToWeth from './Dashboard/EthToWeth';
   import AccountBalances from './Dashboard/AccountBalances';
   import CreateOrder from './Dashboard/CreateOrder';
+  import GetOrders from './Dashboard/GetOrders';
   import config from '@/config';
 
   export default {
@@ -134,7 +143,8 @@
       BarChart,
       EthToWeth,
       AccountBalances,
-      CreateOrder
+      CreateOrder,
+      GetOrders
     },
     data() {
       return {
