@@ -19,5 +19,5 @@ export const networkToRPCURI = {
     3: 'https://ropsten.infura.io',
     4: 'https://rinkeby.infura.io',
     42: 'https://kovan.infura.io',
-    50: 'http://token.su2.io:8545',
+    50: 'https://token.su2.io:8545',
 };
