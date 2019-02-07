@@ -64,7 +64,6 @@ var fetchAccountDetailsAsync =  async () => {
         const numberBalance = new BigNumber(balance);
         return { token, balance: numberBalance, allowance };
       } catch (e) {
-        console.log(e);
         return undefined;
       }
     },
