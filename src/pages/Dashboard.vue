@@ -90,7 +90,7 @@
       </div>
     </div>
     <div class="row">
-<!-- eth2weth -->
+<!-- eth 2 weth -->
       <div class="col-lg-6 col-md-12">
         <card :header-classes="{'text-right': isRTL}">
           <template slot="header">
@@ -108,7 +108,14 @@
           </div>
         </card>
       </div>
-
+<!-- create order -->
+      <div class="col-lg-6 col-md-12">
+        <card class="card" :header-classes="{'text-right': isRTL}">
+          <h4 slot="header" class="card-title">Create Order</h4>
+          <create-order></create-order>
+        </card>
+      </div>
+<!-- End of Cards -->
     </div>
   </div>
 </template>
@@ -118,6 +125,7 @@
   import * as chartConfigs from '@/components/Charts/config';
   import EthToWeth from './Dashboard/EthToWeth';
   import AccountBalances from './Dashboard/AccountBalances';
+  import CreateOrder from './Dashboard/CreateOrder';
   import config from '@/config';
 
   export default {
@@ -125,7 +133,8 @@
       LineChart,
       BarChart,
       EthToWeth,
-      AccountBalances
+      AccountBalances,
+      CreateOrder
     },
     data() {
       return {
