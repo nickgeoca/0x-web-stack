@@ -115,6 +115,13 @@
           <create-order></create-order>
         </card>
       </div>
+<!-- fill order -->
+      <div class="col-lg-6 col-md-12">
+        <card class="card" :header-classes="{'text-right': isRTL}">
+          <h4 slot="header" class="card-title">Fill Order</h4>
+          <fill-order></fill-order>
+        </card>
+      </div>
 <!-- End of Cards -->
     </div>
   </div>
@@ -126,6 +133,7 @@
   import EthToWeth from './Dashboard/EthToWeth';
   import AccountBalances from './Dashboard/AccountBalances';
   import CreateOrder from './Dashboard/CreateOrder';
+  import FillOrder from './Dashboard/FillOrder';
   import config from '@/config';
 
   export default {
@@ -134,7 +142,8 @@
       BarChart,
       EthToWeth,
       AccountBalances,
-      CreateOrder
+      CreateOrder,
+      FillOrder
     },
     data() {
       return {

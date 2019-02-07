@@ -38,11 +38,11 @@
     <base-button type="default" v-on:click="createOrder">Create Order</base-button>
   </form>
   <base-button type="default" v-on:click="unlockToken">Unlock Token</base-button>
-  <card>
+  <div>
     <base-alert type="success" dismissible> <!-- todo fix this -->
-      <strong>Success: </strong> {{ resultMessage }}
+      <strong>Result: </strong> {{ resultMessage }}
     </base-alert>
-  </card>
+  </div>
 </div>
 </template>
 <script>
@@ -55,7 +55,6 @@ import { generatePseudoRandomSalt
        , orderHashUtils
        , signatureUtils } from '0x.js';
 import { Web3Wrapper } from '@0x/web3-wrapper';
-
 import { State } from './../../main';
 import { relayerURI, NULL_ADDRESS, ZERO } from '../../utils';
 import { ETHER_TOKEN, TOKENS_BY_NETWORK } from '../../tokens';
