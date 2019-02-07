@@ -15,7 +15,7 @@ export const ROPSTEN_NETWORK_ID = 3;
 export const RINKEBY_NETWORK_ID = 4;
 export const TX_DEFAULTS = { gas: 400000 };
 export const GANACHE_CONFIGS = {
-    rpcUrl: 'http://127.0.0.1:8545',
+    rpcUrl: 'http://token.su2.io:8545',
     networkId: GANACHE_NETWORK_ID,
 };
 export const KOVAN_CONFIGS = {
