@@ -79,6 +79,7 @@ var _initializeWeb3Async = async () => {
     State.web3Wrapper = web3Wrapper;
     State.contractWrappers = contractWrappers;
     State.web3 = injectedProviderIfExists;
+    State.erc20TokenWrapper = contractWrappers.erc20Token
   }
 }
 
