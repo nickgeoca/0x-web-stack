@@ -1,18 +1,48 @@
 <template>
 <div id="ethToWeth">
   <form>
-    <base-input v-model="sellAmount"
+    <div class="form-row">
+      <base-input v-model="sellSymbol"
+                  label="Sell Symbol"
+                  class="col-md-2"
+                  type="text"
+                  placeholder="symbol">
+      </base-input>
+      <base-input v-model="sellAmount"
+                  label="Sell Amount"
+                  class="col-md-6"
+                  type="text"
+                  placeholder="amount">
+      </base-input>
+    </div>
+    <div class="form-row">
+      <base-input v-model="buySymbol"
+                  label="Buy Symbol"
+                  class="col-md-2"
+                  type="text"
+                  placeholder="symbol">
+      </base-input>
+      <base-input v-model="buyAmount"
+                  label="Buy Amount"
+                  class="col-md-6"
+                  type="text"
+                  placeholder="amount">
+      </base-input>
+    </div>
+    <base-input v-model="expireTime"
+                label="Expire Time (seconds)"
                 type="text"
-                placeholder="Sell Amount">
+                placeholder="seconds">
     </base-input>
-    <base-input v-model="buyAmount"
-                type="text"
-                placeholder="Buy Amount">
-    </base-input>
+
     <base-button type="default" v-on:click="createOrder">Create Order</base-button>
   </form>
-
   <base-button type="default" v-on:click="unlockToken">Unlock Token</base-button>
+  <div>
+    <base-alert type="success" dismissible> <!-- todo fix this -->
+      <strong>Result: </strong> {{ resultMessage }}
+    </base-alert>
+  </div>
 </div>
 </template>
 <script>
@@ -32,24 +62,23 @@ import { NETWORK_CONFIGS } from './../../config';
 
 export default {
   data() {
-    return { sellAmount: '', buyAmount: '' }
+    return { sellAmount: '', buyAmount: '', sellSymbol: '', buySymbol: '', expireTime: '', resultMessage: '' }
   },
   methods: {
     createOrder: async function (event) { 
-      const order = await createOrderAsync( 'ZRX', this.sellAmount
-                                          , 'WETH', this.buyAmount
-                                          , 10 * 60); 
+      const result = await createOrderAsync( this.sellSymbol, this.sellAmount
+                                           , this.buySymbol, this.buyAmount
+                                           , this.expireTime); 
+      this.resultMessage = result;
     },
     unlockToken: async function (event) { 
-      const makerTokenSymbol = 'ZRX';
-
       const contractWrappers = State.contractWrappers;
       const web3Wrapper = State.web3Wrapper;
       const addresses = await web3Wrapper.getAvailableAddressesAsync();
       const makerAddress = addresses[0];
 
       const networkId = await web3Wrapper.getNetworkIdAsync();
-      const makerToken = TOKENS_BY_NETWORK[networkId][makerTokenSymbol].address;
+      const makerToken = TOKENS_BY_NETWORK[networkId][this.sellSymbol].address;
 
       await makerApproveExchangeToSpendERC20Async(contractWrappers, makerToken, makerAddress);
     }
@@ -110,36 +139,19 @@ var createOrderAsync = async (makerTokenSymbol, makerAmount, takerTokenSymbol, t
     ...orderConfig,
   };
 
-  // Generate the order hash and sign it
-  const orderHashHex = orderHashUtils.getOrderHashHex(order);
-  const signature = await signatureUtils.ecSignHashAsync(web3Wrapper._provider, orderHashHex, makerAddress);
-  const signedOrder = { ...order, signature };
-
-  console.log(signedOrder);
-
-  // todo fix this
-  // await contractWrappers.exchange.validateOrderFillableOrThrowAsync(signedOrder);
-  await httpClient.submitOrderAsync(signedOrder, { networkId: NETWORK_CONFIGS.networkId });
-  console.log('Sent to httpClient');
-
-/*
-
-  feeRecipientAddress: NULL_ADDRESS, // No fee recipient
-  senderAddress: NULL_ADDRESS, // Sender address is open and can be submitted by anyone
-  salt: generatePseudoRandomSalt(), // Random value to provide uniqueness
-
-  // Generate the order hash for the order
-  const orderHashHex = orderHashUtils.getOrderHashHex(order);
-  const provider = web3Wrapper.getProvider();
-  // The maker signs the order as a proof
   try {
-    const signedOrder = await signatureUtils.ecSignOrderAsync(provider, order, makerAddress);
-    return signedOrder;
+    // Generate the order hash and sign it
+    const orderHashHex = orderHashUtils.getOrderHashHex(order);
+    const signature = await signatureUtils.ecSignHashAsync(web3Wrapper._provider, orderHashHex, makerAddress);
+    const signedOrder = { ...order, signature };
+
+    // todo fix this
+    // await contractWrappers.exchange.validateOrderFillableOrThrowAsync(signedOrder);
+    await httpClient.submitOrderAsync(signedOrder, { networkId: NETWORK_CONFIGS.networkId });
+    return 'Order sent to relayer';
   } catch (err) {
-    console.log(err);
-    return null;
+    return err;
   }
-*/
-  return;
+
 }
 </script>
