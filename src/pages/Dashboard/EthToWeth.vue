@@ -16,7 +16,7 @@
 <script>
 import { BigNumber, ContractWrappers } from '0x.js';
 import { Web3Wrapper } from '@0x/web3-wrapper';
-import { State } from '../../main'
+import { State } from './../../main'
 
 export default {
   data() {
