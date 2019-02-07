@@ -99,15 +99,16 @@
           <eth-to-weth></eth-to-weth>
         </card>
       </div>
-<!-- -->
+<!-- account balances -->
       <div class="col-lg-6 col-md-12">
         <card class="card" :header-classes="{'text-right': isRTL}">
-          <h4 slot="header" class="card-title">{{$t('dashboard.simpleTable')}}</h4>
+          <h4 slot="header" class="card-title">User Balances</h4>
           <div class="table-responsive">
-            <user-table></user-table>
+            <account-balances></account-balances>
           </div>
         </card>
       </div>
+
     </div>
   </div>
 </template>
@@ -116,7 +117,7 @@
   import BarChart from '@/components/Charts/BarChart';
   import * as chartConfigs from '@/components/Charts/config';
   import EthToWeth from './Dashboard/EthToWeth';
-  import UserTable from './Dashboard/UserTable';
+  import AccountBalances from './Dashboard/AccountBalances';
   import config from '@/config';
 
   export default {
@@ -124,7 +125,7 @@
       LineChart,
       BarChart,
       EthToWeth,
-      UserTable
+      AccountBalances
     },
     data() {
       return {
