@@ -74,7 +74,7 @@ export default {
       const result = await createOrderAsync( this.sellSymbol, this.sellAmount
                                            , this.buySymbol, this.buyAmount
                                            , this.expireTime); 
-      this.resultMessage = result;
+      this.resultMessage = JSON.stringify(result);
     },
     unlockToken: async function (event) { 
       const contractWrappers = State.contractWrappers;
@@ -129,8 +129,8 @@ var createOrderAsync = async (makerTokenSymbol, makerAmount, takerTokenSymbol, t
     takerAssetAmount, // The taker asset amount
     makerAssetData,
     takerAssetData,
-    makerFee: new BigNumber(10), // Web3Wrapper.toBaseUnitAmount(new BigNumber(.03), makerToken.decimals), // 0 maker fees
-    takerFee: new BigNumber(10), // 0 taker fees
+    makerFee: new BigNumber(.001), // Web3Wrapper.toBaseUnitAmount(new BigNumber(.03), makerToken.decimals), // 0 maker fees
+    takerFee: new BigNumber(.001), // 0 taker fees
   };
 
   const orderConfig = await httpClient.getOrderConfigAsync(orderConfigRequest, {
@@ -143,6 +143,9 @@ var createOrderAsync = async (makerTokenSymbol, makerAmount, takerTokenSymbol, t
     ...orderConfigRequest,
     ...orderConfig,
   };
+  
+  console.log('Taker fee', order.takerFee.toString(10));
+  console.log('Maker fee', order.makerFee.toString(10));
 
   try {
     // Generate the order hash and sign it

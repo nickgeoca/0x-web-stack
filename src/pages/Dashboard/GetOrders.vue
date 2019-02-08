@@ -43,7 +43,7 @@ import { BigNumber, ContractWrappers , assetDataUtils } from '0x.js';
 import { Web3Wrapper } from '@0x/web3-wrapper';
 import { State } from './../../main'
 import { ETHER_TOKEN, TOKENS_BY_NETWORK } from '../../tokens';
-import { NETWORK_CONFIGS } from './../../config'; 
+import { NETWORK_CONFIGS, TX_DEFAULTS } from './../../config';
 import { HttpClient } from '@0x/connect';
 import { BaseTable } from "@/components";
 
@@ -102,9 +102,8 @@ var fillOrderAsync = async (orderNum, orderBook) => {
   // await contractWrappers.exchange.validateFillOrderThrowIfInvalidAsync(sraOrder, takerAssetAmount, taker);
       
   // Fill the Order via 0x Exchange contract
-  txHash = await contractWrappers.exchange.fillOrderAsync(sraOrder, sraOrder.takerAssetAmount, taker);
-  txReceipt = await printUtils.awaitTransactionMinedSpinnerAsync('fillOrder', txHash);
-  return {txHash, txReceipt}
+  const txHash = await contractWrappers.exchange.fillOrderAsync(sraOrder, sraOrder.takerAssetAmount, taker, { gasLimit: TX_DEFAULTS.gas });
+  return txHash;
 }
 
 const onTxSubmitted =  txHash => { console.log(txHash); };
