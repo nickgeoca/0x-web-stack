@@ -108,6 +108,13 @@
           </div>
         </card>
       </div>
+<!-- account balances -->
+      <div class="col-lg-6 col-md-12">
+        <card class="card" :header-classes="{'text-right': isRTL}">
+          <h4 slot="header" class="card-title">Unlock Token</h4>
+          <unlock-token></unlock-token>
+        </card>
+      </div>
 <!-- create order -->
       <div class="col-lg-6 col-md-12">
         <card class="card" :header-classes="{'text-right': isRTL}">
@@ -139,6 +146,7 @@
   import * as chartConfigs from '@/components/Charts/config';
   import EthToWeth from './Dashboard/EthToWeth';
   import AccountBalances from './Dashboard/AccountBalances';
+  import UnlockToken from './Dashboard/UnlockToken';
   import CreateOrder from './Dashboard/CreateOrder';
   import GetOrders from './Dashboard/GetOrders';
   import FillOrder from './Dashboard/FillOrder';
@@ -150,6 +158,7 @@
       BarChart,
       EthToWeth,
       AccountBalances,
+      UnlockToken,
       CreateOrder,
       GetOrders,
       FillOrder,

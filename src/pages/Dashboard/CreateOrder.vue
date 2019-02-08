@@ -76,17 +76,6 @@ export default {
                                            , this.expireTime); 
       this.resultMessage = JSON.stringify(result);
     },
-    unlockToken: async function (event) { 
-      const contractWrappers = State.contractWrappers;
-      const web3Wrapper = State.web3Wrapper;
-      const addresses = await web3Wrapper.getAvailableAddressesAsync();
-      const makerAddress = addresses[0];
-
-      const networkId = await web3Wrapper.getNetworkIdAsync();
-      const makerToken = TOKENS_BY_NETWORK[networkId][this.sellSymbol].address;
-
-      await makerApproveExchangeToSpendERC20Async(contractWrappers, makerToken, makerAddress);
-    }
   }
 }
 
