@@ -30,4 +30,4 @@ export const RINKEBY_CONFIGS = {
     rpcUrl: 'https://rinkeby.infura.io/',
     networkId: RINKEBY_NETWORK_ID,
 };
-export const NETWORK_CONFIGS = GANACHE_CONFIGS; // or KOVAN_CONFIGS or ROPSTEN_CONFIGS or RINKEBY_CONFIGS
+export const NETWORK_CONFIGS = RINKEBY_CONFIGS; // or KOVAN_CONFIGS or ROPSTEN_CONFIGS or RINKEBY_CONFIGS
